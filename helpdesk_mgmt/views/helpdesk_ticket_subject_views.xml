@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+    <record id="helpdesk_ticket_subject_view_list" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.subject.view.list</field>
+        <field name="model">helpdesk.ticket.subject</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+    <record id="helpdesk_ticket_subject_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.subject.view.form</field>
+        <field name="model">helpdesk.ticket.subject</field>
+        <field name="arch" type="xml">
+            <form string="Asunto de Ticket">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="active" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="helpdesk_ticket_subject_action" model="ir.actions.act_window">
+        <field name="name">Asuntos de ticket</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">helpdesk.ticket.subject</field>
+        <field name="view_mode">list,form</field>
+        <field name="path">helpdesk-subjects</field>
+    </record>
+</odoo>

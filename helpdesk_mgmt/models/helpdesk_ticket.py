@@ -58,7 +58,18 @@ class HelpdeskTicket(models.Model):
             record.duplicate_count = len(record.duplicate_ids)
 
     number = fields.Char(string="Número de ticket", default="/", readonly=True)
-    name = fields.Char(string="Título", required=True)
+    subject_id = fields.Many2one(
+        comodel_name="helpdesk.ticket.subject",
+        string="Título",
+        required=True,
+        tracking=True,
+    )
+    name = fields.Char(
+        string="Título",
+        related="subject_id.name",
+        store=True,
+        readonly=True,
+    )
     description = fields.Html(required=True, sanitize_style=True)
     user_id = fields.Many2one(
         comodel_name="res.users",

@@ -18,7 +18,7 @@
     <record id="helpdesk_my_tickets_action" model="ir.actions.act_window">
         <field name="name">Mis tickets</field>
         <field name="res_model">helpdesk.ticket</field>
-        <field name="view_mode">kanban,list,pivot,form</field>
+        <field name="view_mode">list,kanban,pivot,form</field>
         <field name="domain">[('user_id', '=', uid)]</field>
         <field name="path">my-helpdesk-tickets</field>
     </record>
@@ -161,5 +161,12 @@
         parent="helpdesk_ticket_config_main_menu"
         action="helpdesk_ticket_tag_action"
         sequence="45"
+    />
+    <menuitem
+        id="helpdesk_ticket_subject_menu"
+        name="Asuntos de ticket"
+        parent="helpdesk_ticket_config_main_menu"
+        action="helpdesk_ticket_subject_action"
+        sequence="50"
     />
 </odoo>

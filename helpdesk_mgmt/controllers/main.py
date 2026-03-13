@@ -73,11 +73,24 @@ class HelpdeskTicketController(http.Controller):
             int(kw.get("category") or 0)
         )
         company = category.company_id or http.request.env.company
+        # Find or create the ticket subject
+        subject_name = kw.get("subject") or ""
+        subject = (
+            http.request.env["helpdesk.ticket.subject"]
+            .sudo()
+            .search([("name", "=ilike", subject_name)], limit=1)
+        )
+        if not subject and subject_name:
+            subject = (
+                http.request.env["helpdesk.ticket.subject"]
+                .sudo()
+                .create({"name": subject_name})
+            )
         vals = {
             "company_id": company.id,
             "category_id": category.id,
             "description": plaintext2html(kw.get("description")),
-            "name": kw.get("subject"),
+            "subject_id": subject.id if subject else False,
             "attachment_ids": False,
             "channel_id": request.env.ref(
                 "helpdesk_mgmt.helpdesk_ticket_channel_web", False
