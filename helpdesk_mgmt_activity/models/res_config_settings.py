@@ -4,6 +4,7 @@
 import ast
 
 from odoo import api, fields, models
+from odoo.fields import Command
 
 
 class ResConfigSettings(models.TransientModel):
@@ -33,9 +34,9 @@ class ResConfigSettings(models.TransientModel):
             "helpdesk_mgmt_activity.helpdesk_available_model_ids", False
         )
         if helpdesk_available_model_ids:
-            res.update(
-                helpdesk_available_model_ids=ast.literal_eval(
-                    helpdesk_available_model_ids
+            ids_list = ast.literal_eval(helpdesk_available_model_ids)
+            if ids_list:
+                res.update(
+                    helpdesk_available_model_ids=[Command.set(ids_list)]
                 )
-            )
         return res

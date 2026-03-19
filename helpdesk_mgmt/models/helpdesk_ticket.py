@@ -70,7 +70,7 @@ class HelpdeskTicket(models.Model):
         store=True,
         readonly=True,
     )
-    description = fields.Html(required=True, sanitize_style=True)
+    description = fields.Html(sanitize_style=True)
     user_id = fields.Many2one(
         comodel_name="res.users",
         string="Usuario asignado",
