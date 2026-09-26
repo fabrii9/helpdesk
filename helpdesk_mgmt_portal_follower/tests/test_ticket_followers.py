@@ -1,4 +1,3 @@
-from odoo import http
 
 from odoo.addons.base.tests.common import HttpCaseWithUserPortal
 
@@ -22,7 +21,7 @@ class TestSubmitPortalTicketBase(HttpCaseWithUserPortal):
     def _submit_ticket_with_followers(self, response_code, **values):
         data = {
             "category": self.category.id,
-            "csrf_token": http.Request.csrf_token(self),
+            "csrf_token": self.csrf_token(),
             "subject": self.new_ticket_title,
             "description": self.new_ticket_description,
             "followers": self.follower_emails,
@@ -35,7 +34,7 @@ class TestSubmitPortalTicketBase(HttpCaseWithUserPortal):
     def _submit_ticket_without_followers(self, response_code, **values):
         data = {
             "category": self.category.id,
-            "csrf_token": http.Request.csrf_token(self),
+            "csrf_token": self.csrf_token(),
             "subject": self.new_ticket_title,
             "description": self.new_ticket_description,
             "followers": "",

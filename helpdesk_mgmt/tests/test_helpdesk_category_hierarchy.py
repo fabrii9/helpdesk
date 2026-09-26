@@ -3,6 +3,10 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestHelpdeskCategoryHierarchy(BaseCommon):
+    # v20: BaseCommon ejecuta cada test como usuario base.group_user;
+    # mantener el comportamiento anterior (superusuario).
+    _test_user_groups = ()
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
