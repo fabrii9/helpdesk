@@ -4,7 +4,7 @@
         Este módulo permite al cliente valorar la asistencia recibida
         en un ticket.
         """,
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "license": "AGPL-3",
     "author": "Domatix, Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/helpdesk",

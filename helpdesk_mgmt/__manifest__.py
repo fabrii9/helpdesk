@@ -4,7 +4,7 @@
     "name": "Gestión de Mesa de Ayuda",
     "summary": """
         Mesa de Ayuda""",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "license": "AGPL-3",
     "category": "After-Sales",
     "author": "AdaptiveCity, "
@@ -19,8 +19,9 @@
     "depends": ["mail", "portal"],
     "data": [
         "data/helpdesk_data.xml",
+        "data/portal_entry_data.xml",
         "security/helpdesk_security.xml",
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
         "views/res_partner_views.xml",
         "views/res_config_settings_views.xml",
         "views/helpdesk_ticket_templates.xml",

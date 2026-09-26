@@ -35,29 +35,19 @@
     </record>
     <record id="view_task_kanban_helpdesk" model="ir.ui.view">
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_kanban" />
+        <field name="inherit_id" ref="project.view_task_card" />
         <field name="arch" type="xml">
-            <xpath expr="//main//footer/div[2]" position="before">
-                <div
-                    invisible="ticket_count==0"
+            <xpath expr="//footer/field[@name='priority']" position="before">
+                <a
+                    invisible="ticket_count == 0"
                     groups="helpdesk_mgmt.group_helpdesk_user_own"
+                    class="me-1 text-muted"
+                    name="action_view_ticket"
+                    type="object"
                 >
-                    <a
-                        class="o_project_kanban_box"
-                        name="action_view_ticket"
-                        type="object"
-                    >
-                        <span class="o_value">
-                            <b>
-                                <field name="ticket_count" />
-                            </b>
-                        </span>
-                        <span class="o_label">
-                            <field name="label_tickets" />
-                        </span>
-                    </a>
-                    &#160;
-                </div>
+                    <i class="fa fa-life-ring" title="Tickets" />
+                    <field name="ticket_count" class="ms-1" />
+                </a>
             </xpath>
         </field>
     </record>

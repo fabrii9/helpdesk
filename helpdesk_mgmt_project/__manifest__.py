@@ -3,7 +3,7 @@
 {
     "name": "Proyecto de Mesa de Ayuda",
     "summary": "Agregar la opción de seleccionar proyecto en los tickets.",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "license": "AGPL-3",
     "category": "After-Sales",
     "author": "PuntSistemes S.L.U., " "Odoo Community Association (OCA)",

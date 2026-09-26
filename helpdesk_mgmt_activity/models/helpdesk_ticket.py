@@ -4,6 +4,7 @@
 import ast
 
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class HelpdeskTicket(models.Model):
@@ -38,19 +39,19 @@ class HelpdeskTicket(models.Model):
         model_ids_str = (
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("helpdesk_mgmt_activity.helpdesk_available_model_ids", "[]")
+            .get_str("helpdesk_mgmt_activity.helpdesk_available_model_ids", "[]")
         )
         model_ids = ast.literal_eval(model_ids_str)
         if not model_ids:
             return []
-        IrModelAccess = self.env["ir.model.access"].with_user(self.env.user.id)
         available_models = self.env["ir.model"].search_read(
             [("id", "in", model_ids)], fields=["model", "name"]
         )
         return [
             (model.get("model"), model.get("name"))
             for model in available_models
-            if IrModelAccess.check(model.get("model"), "read", False)
+            if model.get("model") in self.env
+            and self.env[model.get("model")].has_access("read")
         ]
 
     @api.model
@@ -118,15 +119,15 @@ class HelpdeskTicket(models.Model):
     def _check_activity_values(self):
         """Check activity values for helpdesk ticket"""
         if not self.can_create_activity:
-            raise models.UserError(_("\u00a1No puede crear una actividad!"))
+            raise UserError(_("\u00a1No puede crear una actividad!"))
         if not (self.res_id and self.res_model):
-            raise models.UserError(_("\u00a1El registro fuente no est\u00e1 configurado!"))
+            raise UserError(_("\u00a1El registro fuente no est\u00e1 configurado!"))
         if not self.source_activity_type_id:
-            raise models.UserError(_("\u00a1El tipo de actividad no est\u00e1 configurado!"))
+            raise UserError(_("\u00a1El tipo de actividad no est\u00e1 configurado!"))
         if not self.date_deadline:
-            raise models.UserError(_("\u00a1La fecha l\u00edmite no est\u00e1 configurada!"))
+            raise UserError(_("\u00a1La fecha l\u00edmite no est\u00e1 configurada!"))
         if not self.assigned_user_id:
-            raise models.UserError(_("\u00a1El usuario asignado no est\u00e1 configurado!"))
+            raise UserError(_("\u00a1El usuario asignado no est\u00e1 configurado!"))
 
     def perform_action(self):
         """Perform action for ticket"""
@@ -144,7 +145,7 @@ class HelpdeskTicket(models.Model):
             )
             self.set_next_stage()
         except Exception as e:
-            raise models.UserError from e
+            raise UserError from e
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
