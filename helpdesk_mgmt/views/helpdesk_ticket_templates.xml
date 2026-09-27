@@ -30,7 +30,7 @@
                 type="action"
                 t-att-class="'btn btn-primary ' + (_btn_classes or '')"
             >
-                <i class="fa fa-plus" /> Nuevo</button>
+                <i class="oi" data-icon="add" /> Nuevo</button>
         </form>
     </template>
     <template id="portal_searchbar" inherit_id="portal.portal_searchbar" primary="True">
